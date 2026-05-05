@@ -1,8 +1,9 @@
-#include <iostream>
-#include "GameEngine.h"
+#include<iostream>
+#include"GameEngine.h"
 using namespace std;
 
-int main() {
+int main() 
+{
     GameEngine game;
     game.run();
     return 0;

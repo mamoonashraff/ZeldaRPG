@@ -1,6 +1,6 @@
 #ifndef HERO_H
 #define HERO_H
-
+#include<fstream>
 #include"Character.h"
 #include"Weapon.h"
 #include"Potion.h"
@@ -52,6 +52,21 @@ class Hero : public Character{
 			}
 			cout<<name<<" attack for "<<dmg<<" damage! "<<endl;
 			target.takeDamage(dmg);
+		}
+		void saveToFile(ofstream& file) 
+		{
+    		file<<name<< endl;
+    		file<<health<<endl;
+    		file<<gold<<endl;
+    		file<<level<<endl;
+		}
+
+		void loadFromFile(ifstream& file) 
+		{
+  			file>>name;
+    		file>>health;
+    		file>>gold;
+   			file>>level;
 		}
 		void DisplayStats() override
 		{

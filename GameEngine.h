@@ -1,6 +1,6 @@
 #ifndef GAMEENGINE_H
 #define GAMEENGINE_H
-
+#include<fstream>
 #include"Hero.h"
 #include"Map.h"
 #include"Inventory.h"
@@ -50,6 +50,8 @@ class GameEngine
             cout<<"  P = Pick item"<<endl;
             cout<<"  B = View bag"<<endl;
             cout<<"  H = Hero stats"<<endl;
+            cout<<"  S = Save game"<<endl;
+   			cout<<"  L = Load game"<<endl;
             cout<<"  Q = Quit game"<<endl;
         }
 
@@ -139,6 +141,48 @@ class GameEngine
                 gameMap->getCurrentRoom()->display();
             }
         }
+        void saveGame() 
+		{
+    			ofstream file("savegame.txt");
+    			if(file.is_open()) 
+				{
+    	    	player->saveToFile(file);
+    		    file<<gameMap->getCurrentRoomNumber()<<endl;
+        		file.close();
+        		cout<<"Game saved successfully!"<<endl;
+    		} 
+			else
+			{
+        		cout<<"Could not save game!"<<endl;
+    		}
+		}
+		void loadGame() 
+		{
+   				ifstream file("savegame.txt");
+    			if(file.is_open()) 
+				{
+        		player->loadFromFile(file);
+        		int roomNum;
+        		file>>roomNum;
+        		file.close();
+        		
+        		delete gameMap;
+        		gameMap=new Map();
+
+        		for(int i=1; i<roomNum; i++) 
+				{
+         	   	gameMap->moveNext();
+        		}
+        		cout<<"Game loaded successfully!"<<endl;
+        		cout<<"Welcome back, "<<player->getName()<<"!"<<endl;
+        		cout<<"HP: "<<player->getHealth()<<"  Gold: "<<player->getGold()<<endl;
+        		gameMap->getCurrentRoom()->display();
+   				}
+		 		else 
+				{
+        		cout<<"No save file found!"<<endl;
+   				}
+		}
 
         void run() 
 		{
@@ -173,6 +217,14 @@ class GameEngine
 				{ 
 					player->DisplayStats();
 			 	}
+			 	else if(cmd=='S') 
+				{ 
+					saveGame();             
+				}
+				else if(cmd=='L') 
+				{ 
+					loadGame();             
+				}
                 else if(cmd=='Q') 
 				{
                     cout<<"Thanks for playing!"<<endl;
