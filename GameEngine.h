@@ -4,6 +4,9 @@
 #include"Hero.h"
 #include"Map.h"
 #include"Inventory.h"
+#include"Dragon.h"
+#include"Spell.h"
+#include<cstdlib>
 
 class GameEngine 
 {
@@ -52,6 +55,8 @@ class GameEngine
             cout<<"  H = Hero stats"<<endl;
             cout<<"  S = Save game"<<endl;
    			cout<<"  L = Load game"<<endl;
+   			cout<<"  Z = Cast spell"<<endl;
+    		cout<<"  X = Show spells"<<endl;
             cout<<"  Q = Quit game"<<endl;
         }
 
@@ -84,8 +89,15 @@ class GameEngine
                     break;
                 }
 
-                enemy->attackTarget(*player);
-                cout<<"Hero HP: "<<player->gethealth()<<endl;
+                Dragon*dragon=dynamic_cast<Dragon*>(enemy);
+				if(dragon != nullptr) 
+				{
+    			dragon->attackTarget(*player);
+				} 
+				else 
+				{
+    				enemy->attackTarget(*player);
+				}
 
                 if(!player->isAlive())
 				{
@@ -122,8 +134,43 @@ class GameEngine
 				{
                     player->equipWeapon(w);
                 }
+                Spell*s=dynamic_cast<Spell*>(item);
+				if(s != nullptr) 
+				{
+    				player->learnSpell(s);
+				}
             }
         }
+        void castSpellMenu() 
+		{
+    		Room*room=gameMap->getCurrentRoom();
+    		Enemy*enemy=room->getEnemy();
+
+    		if(enemy == nullptr || !enemy->isAlive()) 
+			{
+        		cout<<"No enemy to cast spell on!"<<endl;
+        		return;
+    		}
+
+    		player->showSpells();
+    		cout<<"Enter spell number: ";
+    		int choice;
+    		cin>>choice;
+    		player->castSpell(choice - 1,*enemy);
+
+    		cout<<enemy->getName()<<" HP: "<< enemy->gethealth()<<endl;
+
+    		if(!enemy->isAlive()) 
+			{
+        		cout<<enemy->getName()<<" defeated!"<<endl;
+        		player->addGold(enemy->getGoldReward());
+        	if(gameMap->isLastRoom()) 
+				{
+            		gameWon=true;
+            		gameOver=true;
+        		}
+    		}
+		}
 
         void moveNext() 
 		{
@@ -175,7 +222,7 @@ class GameEngine
         		}
         		cout<<"Game loaded successfully!"<<endl;
         		cout<<"Welcome back, "<<player->getName()<<"!"<<endl;
-        		cout<<"HP: "<<player->getHealth()<<"  Gold: "<<player->getGold()<<endl;
+        		cout<<"HP: "<<player->gethealth()<<"  Gold: "<<player->getGold()<<endl;
         		gameMap->getCurrentRoom()->display();
    				}
 		 		else 
@@ -225,7 +272,15 @@ class GameEngine
 				{ 
 					loadGame();             
 				}
-                else if(cmd=='Q') 
+                else if(cmd =='Z') 
+				{
+				 castSpellMenu(); 
+				}
+				else if(cmd =='X') 
+				{ 
+					player->showSpells(); 
+				}
+				else if(cmd=='Q') 
 				{
                     cout<<"Thanks for playing!"<<endl;
                     gameOver=true;

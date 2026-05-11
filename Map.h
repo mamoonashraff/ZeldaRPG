@@ -5,6 +5,8 @@
 #include"Weapon.h"
 #include"Potion.h"
 #include"Enemy.h"
+#include"Dragon.h"
+#include"Spell.h"
 
 class Map {
     private:
@@ -27,10 +29,11 @@ class Map {
 
             rooms[1]->addItem(new Potion("Health Potion",50));
 
-            rooms[2]->addItem(new Weapon("Magic Staff",40,"magic"));
+            rooms[2]->addItem(new Spell("Fire Bolt",20,60,"magic"));
             rooms[2]->setEnemy(new Enemy("Dark Knight",100,25,8,"magic",35));
 
-            rooms[3]->setEnemy(new Enemy("Tony",200,40,10,"sword",100));
+            rooms[3]->setEnemy(new Dragon("Ancient Dragon", 300, 35, 15, 50));
+            
         }
 
         Room* getCurrentRoom() 

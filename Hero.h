@@ -4,6 +4,7 @@
 #include"Character.h"
 #include"Weapon.h"
 #include"Potion.h"
+#include"Spell.h"
 
 class Hero : public Character{
 	private:
@@ -11,6 +12,8 @@ class Hero : public Character{
 		int gold;
 		int level;
 		Weapon*equippedWeapon;
+		Spell*spells[5];
+		int spellCount;
 	public:
 		Hero(string n,int hp,int atk,int def):Character(n,hp,atk,def)
 		{
@@ -18,6 +21,11 @@ class Hero : public Character{
 			gold=0;
 			level=1;
 			equippedWeapon=nullptr;
+			spellCount =0;
+			for(int i=0;i<5;i++) 
+			{
+   				spells[i]=nullptr;
+			}
 		}
 		int getMana()
 		{
@@ -36,6 +44,60 @@ class Hero : public Character{
 		{
 			equippedWeapon=w;
 			cout<<name<<" equipped "<<w->getName()<<"!"<<endl;
+		}
+		void learnSpell(Spell*s) 
+		{
+   			if(spellCount>=5) 
+			   {
+        			cout<<"Cannot learn more spells!"<<endl;
+        			return;
+   				}
+    		spells[spellCount]=s;
+    		spellCount++;
+    		cout<<name<<" learned "<<s->getName()<<"!"<<endl;
+		}
+
+		void castSpell(int index,Character& target) 
+		{
+    		if(index<0||index>=spellCount) 
+			{
+     		   cout<<"Invalid spell!"<<endl;
+        		return;
+    		}
+    		if(spells[index]==nullptr) 
+			{
+        		cout<<"No spell found!"<<endl;
+     	   		return;
+    		}
+   	 		if(mana<spells[index]->getManaCost()) 
+				{
+      			  cout<<"Not enough mana!"<<endl;
+        			return;
+   				}
+    			mana-=spells[index]->getManaCost();
+    			cout<<name<<" casts "<<spells[index]->getName()<<"!"<<endl;
+   				target.takeDamage(spells[index]->getDamage());
+    			cout<<"Mana remaining: "<<mana<<endl;
+		}
+
+		void showSpells() 
+		{
+   	 		cout<<"===== SPELLS ====="<<endl;
+    		if(spellCount==0) 
+			{
+        		cout<<"No spells learned!"<<endl;
+    		} 
+			else 
+			{
+        		for(int i=0;i<spellCount; i++) 
+				{
+           			cout<<i+1<<". ";
+            		spells[i]->Display();
+            		cout<<endl;
+        		}
+    		}
+    		cout<<"Mana: "<<mana<<endl;
+    		cout<<"=================="<<endl;
 		}
 		void addGold(int amount)
 		{
