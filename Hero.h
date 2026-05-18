@@ -39,6 +39,10 @@ class Hero : public Character{
 		{
 			return level;
 		}
+		int getSpellCount() 
+		{ 
+			return spellCount; 
+		}
 		
 		void equipWeapon(Weapon*w)
 		{

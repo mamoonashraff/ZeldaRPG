@@ -122,7 +122,19 @@ class GameEngine
             room->display();
             cout<<"Enter item number to pick: ";
             int choice;
-            cin>>choice;
+            if(!(cin >> choice))
+			{
+        	cin.clear();
+       		cin.ignore(1000, '\n');
+        	cout << "Invalid input! Enter a number." << endl;
+        	return;
+    		}
+
+    		if(choice < 1||choice>room->getItemCount()) 
+			{
+        		cout << "Invalid choice! Enter number between 1 and "<< room->getItemCount() << endl;
+        		return;
+    		}
 
             Item*item=room->pickItem(choice-1);
             if(item !=nullptr) 
@@ -153,10 +165,29 @@ class GameEngine
     		}
 
     		player->showSpells();
+    		if(player->getSpellCount() == 0) 
+			{
+        		cout<<"No spells learned yet!"<<endl;
+        		return;
+    		}
+
     		cout<<"Enter spell number: ";
     		int choice;
-    		cin>>choice;
-    		player->castSpell(choice - 1,*enemy);
+    		if(!(cin >> choice)) 
+			{
+        		cin.clear();
+        		cin.ignore(1000, '\n');
+        		cout << "Invalid input! Enter a number."<<endl;
+        		return;
+    		}
+
+    		if(choice<1||choice>player->getSpellCount()) 
+			{
+        		cout<<"Invalid spell number!"<<endl;
+        		return;
+    		}
+
+    		player->castSpell(choice-1,*enemy);
 
     		cout<<enemy->getName()<<" HP: "<< enemy->gethealth()<<endl;
 
@@ -238,11 +269,17 @@ class GameEngine
 
             while(!gameOver) 
 			{
-                displayCommands();
-                cout<<"\nEnter command: ";
-                char cmd;
-                cin>>cmd;
-                cmd=toupper(cmd);
+        		displayCommands();
+        		cout<<"\nEnter command: ";
+        
+        		char cmd;
+        		if(!(cin>>cmd)) 
+				{
+           		 	cin.clear();
+            		cin.ignore(1000,'\n');
+            		cout<<"Invalid input!"<<endl;
+            		continue;
+        		}
 
                 if(cmd=='W') 
 				{ 
