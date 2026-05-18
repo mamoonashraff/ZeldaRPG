@@ -42,11 +42,11 @@ Q - Quit game
 
 ### Inheritance
 
-- Character ? Hero
-- Character ? Enemy ? Dragon
-- Item ? Weapon
-- Item ? Potion
-- Item ? Spell
+- Character  Hero
+- Character  Enemy  Dragon
+- Item  Weapon
+- Item  Potion
+- Item  Spell
 
 ### Polymorphism
 
@@ -56,8 +56,8 @@ Q - Quit game
 
 ### Abstraction
 
-- Character � pure virtual attackTarget()
-- Item � pure virtual use() and Display()
+- Character  pure virtual attackTarget()
+- Item  pure virtual use() and Display()
 
 ### Composition
 
@@ -78,20 +78,20 @@ Q - Quit game
 ## Project Structure
 
 ZeldaRPG/
-+-- Character.h � Base class for all characters
-+-- Item.h � Base class for all items
-+-- Weapon.h � Weapon item
-+-- Potion.h � Healing potion
-+-- Spell.h � Magic spell
-+-- Hero.h � Player character
-+-- Enemy.h � Enemy character
-+-- Dragon.h � Final boss
-+-- Inventory.h � Hero's bag system
-+-- Room.h � Game room
-+-- Map.h � Game world
-+-- GameEngine.h � Game controller
-+-- main.cpp � Entry point
-+-- savegame.txt � Save file
++-- Character.h  Base class for all characters
++-- Item.h  Base class for all items
++-- Weapon.h  Weapon item
++-- Potion.h  Healing potion
++-- Spell.h Magic spell
++-- Hero.h  Player character
++-- Enemy.h  Enemy character
++-- Dragon.h  Final boss
++-- Inventory.h  Hero's bag system
++-- Room.h  Game room
++-- Map.h  Game world
++-- GameEngine.h  Game controller
++-- main.cpp  Entry point
++-- savegame.txt  Save file
 
 ---
 
@@ -127,7 +127,7 @@ Or open in Dev C++ and press **F11**
 ## Author
 
 **Mamoon Ashraf**
-BS Computer Science � 2nd Semester
+BS Computer Science 2nd Semester
 Institute of Space Technology (IST), Islamabad, Pakistan
 mamoonashraf831@gmail.com
 [GitHub](https://github.com/mamoonashraff)
