@@ -78,20 +78,20 @@ Developed as a 2nd Semester OOP Project at IST (Institute of Space Technology).
 ## Project Structure
 
 ZeldaRPG/
-+- Character.h  Base class for all characters
-+- Item.h  Base class for all items
-+- Weapon.h  Weapon item
-+- Potion.h  Healing potion
-+- Spell.h Magic spell
-+- Hero.h  Player character
-+- Enemy.h  Enemy character
-+- Dragon.h  Final boss
-+- Inventory.h  Hero's bag system
-+- Room.h  Game room
-+- Map.h  Game world
-+- GameEngine.h  Game controller
-+- main.cpp  Entry point
-+- savegame.txt  Save file
+- Character.h  Base class for all characters
+- Item.h  Base class for all items
+- Weapon.h  Weapon item
+- Potion.h  Healing potion
+- Spell.h Magic spell
+- Hero.h  Player character
+- Enemy.h  Enemy character
+- Dragon.h  Final boss
+- Inventory.h  Hero's bag system
+- Room.h  Game room
+- Map.h  Game world
+- GameEngine.h  Game controller
+- main.cpp  Entry point
+- savegame.txt  Save file
 
 ---
 
